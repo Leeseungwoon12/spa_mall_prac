@@ -23,7 +23,7 @@ router.post('/auth', async(req, res) => {
     //JWT를 생성 
     const token = jwt.sign({userId: user.userId}, "customized-secert-key");
 
-    res.cookie("Authorization", `Bearer ${token}`); // 
+    res.cookie("Authorization", `Bearer ${token}`); // 쿠키를 할당
     res.status(200).json({token});
 });
 

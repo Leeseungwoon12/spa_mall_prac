@@ -1,7 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../schemas/user");
+const authMiddleware = require("../middlewares/auth-middleware");
 
+// 내 정보 조회 API
+// /users/me라는 주소에 들어오면 auth-middleward(사용자 인증 미들웨어)를 가서 로직을 해결하고, 다시 res 로 돌아온다.
+router.get('/users/me', authMiddleware, async(req, res) => { 
+  const {email, nickname} = res.locals.user;
+  res.status(200).json({
+    user : {
+      email: email,
+      nickname: nickname
+    }
+  });
+});
 
 // 회원가입 API
 router.post("/users", async (req, res) => {
